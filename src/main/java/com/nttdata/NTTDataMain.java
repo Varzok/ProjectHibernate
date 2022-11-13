@@ -2,13 +2,16 @@ package com.nttdata;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.nttdata.persistencia.Contract;
 import com.nttdata.persistencia.Customer;
+import com.nttdata.service.ContractServiceI;
 import com.nttdata.service.CustomerServiceI;
 
 /**
@@ -25,6 +28,9 @@ public class NTTDataMain implements CommandLineRunner{
 	
 	@Autowired
 	private CustomerServiceI customerService;
+	
+	@Autowired
+	private ContractServiceI contractService;
 
 	/**
 	 * Método main
@@ -102,6 +108,47 @@ public class NTTDataMain implements CommandLineRunner{
 			System.out.println("Cliente con id " + idSearch2 + " no encontrado");
 		}
 		
+		//Creación de contrato 1
+		final Contract contract1 = new Contract();
+		contract1.setDateIn(new Date());
+		contract1.setDateOut(null);
+		contract1.setMonthlyPrice(1200.23);
+		contract1.setCustomer(customer1);
+		
+		//Creación de contrato 2
+		final Contract contract2 = new Contract();
+		contract2.setDateIn(new Date());
+		contract2.setDateOut(null);
+		contract2.setMonthlyPrice(1500.67);
+		contract2.setCustomer(customer1);
+		
+		//Creación de contrato 3
+		final Contract contract3 = new Contract();
+		contract3.setDateIn(new Date());
+		contract3.setDateOut(null);
+		contract3.setMonthlyPrice(300.10);
+		contract3.setCustomer(customer1);
+		
+		//Se añaden los obejetos de tipo contract
+		contractService.insertContract(contract1);
+		contractService.insertContract(contract2);
+		contractService.insertContract(contract3);
+		
+		//Se consultan todos los contratos
+		List<Contract> contractTotal = contractService.searchAll();
+		System.out.println("Lista de Contratos");
+		for(Contract contract: contractTotal) {
+			String contractOfCustomer = contract.toString();
+			System.out.println(contractOfCustomer);
+		}
+		
+		//Se consulta los contratos de un usuario, da error, en proceso de reparación
+		/*List<Contract> contractList = new ArrayList<Contract>();
+		contractList = contractService.findByIdCustomer((long) 1);
+		for(Contract contract: contractList) {
+			String contractOfCustomer = contract.toString();
+			System.out.println(contractOfCustomer);
+		}*/
 
 	}
 

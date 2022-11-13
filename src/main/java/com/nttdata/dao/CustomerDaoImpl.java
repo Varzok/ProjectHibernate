@@ -11,16 +11,19 @@ import org.springframework.stereotype.Repository;
 
 import com.nttdata.persistencia.Customer;
 
+/**
+ * 
+ * Bootcamp NTTData
+ * 
+ * DAO tabla Clientes
+ * 
+ * @author Salva Castillo
+ *
+ */
 @Repository
 public class CustomerDaoImpl extends CommonDaoImpl <Customer> implements CustomerDaoI {
 
-	/**
-	 * Tipo de clase
-	 */
-	//private Class<Customer> entityClass;
-	/**
-	 * Manejador de entidades
-	 */
+	/** Manejador de entidades*/
 	@Autowired
 	private EntityManager entityManager;
 
@@ -31,25 +34,18 @@ public class CustomerDaoImpl extends CommonDaoImpl <Customer> implements Custome
 
 	@Override
 	public List<Customer> findByNameAndFamilyName(final String name, final String firstFamilyName, final String secondFamilyName){
+		
 		// Obtencion de sesión
 		Session currentSession = entityManager.unwrap(Session.class);
-		// Busqueda por identificador.
+		
+		// Busqueda por nombre, primer apellido y segundo apellido.
 		@SuppressWarnings("unchecked")
 		List<Customer> customer = currentSession.createQuery("FROM Customer customer WHERE name='" + name + "'AND first_family_name='" + firstFamilyName + "' AND second_family_name='" + secondFamilyName +"'").list();
-		//List<Customer> customer = currentSession.createQuery("SELECT name FROM Cliente WHERE name=" + name + "AND first_family_name=" + firstFamilyName + "AND second_family_name=" + secondFamilyName).list();
+		
 		// Cierre de sesión
 		currentSession.close();
 		
 		return customer;
 	}
-	/*public T findById(int id) {
-		//Obtencion de sesión
-		Session currentSession = entityManager.unwrap(Session.class);
-		//Busqueda por identificador.
-		T entity = currentSession.find(entityClass, id);
-		//Cierre de sesión
-		currentSession.close();
-				
-		return entity;*/
 
 }

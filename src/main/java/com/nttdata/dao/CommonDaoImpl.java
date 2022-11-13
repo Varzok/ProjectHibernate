@@ -12,17 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nttdata.persistencia.AbstractEntity;
 
+/**
+ * 
+ * Bootcamp NTTData
+ * 
+ * DAO genérico
+ * 
+ * @author Salva Castillo
+ * 
+ */
 @Repository
 public abstract class CommonDaoImpl<T extends AbstractEntity> implements CommonDaoI<T> {
 
 	
-	/**
-	 * Tipo de clase
-	 */
+	/**Tipo de clase*/
 	private Class<T> entityClass;
-	/**
-	 * Manejador de entidades
-	 */
+	
+	/**Manejador de entidades */
 	@Autowired
 	private EntityManager entityManager;
 
@@ -32,7 +38,6 @@ public abstract class CommonDaoImpl<T extends AbstractEntity> implements CommonD
 	}
 	
 	
-	 
 	@Override
 	@Transactional
 	public T findById(int id) {
@@ -69,7 +74,6 @@ public abstract class CommonDaoImpl<T extends AbstractEntity> implements CommonD
 		currentSession.save(entity);
 		//Cierre de sesión
 		currentSession.close();
-		
 	}
 
 	@Override
@@ -93,13 +97,14 @@ public abstract class CommonDaoImpl<T extends AbstractEntity> implements CommonD
 		currentSession.delete(entity);
 		//Cierre de sesión
 		currentSession.close();
-		
 	}
-
+	
+	/**@param entityClass*/
 	public void setEntityClass(Class<T> entityClass) {
 		this.entityClass = entityClass;
 	}
 	
+	/** @return entityClass*/
 	public Class<T> getEntityClass() {
 		return entityClass;
 	}

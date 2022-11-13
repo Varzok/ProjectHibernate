@@ -9,12 +9,23 @@ import org.springframework.stereotype.Service;
 import com.nttdata.dao.CustomerDaoI;
 import com.nttdata.persistencia.Customer;
 
+/**
+ * 
+ * Bootcamp NTTData
+ * 
+ * Implementación servicio cliente
+ * 
+ * @author Salva Castillo
+ *
+ */
 @Service
 public class CustomerServiceImpl implements CustomerServiceI {
-
+	
+	/**DAO customer*/
 	@Autowired
 	private CustomerDaoI customerDao;
-
+	
+	/**Inserta cliente*/
 	@Override
 	public void insertCustomer(Customer newCustomer) {
 		if(newCustomer != null) {
@@ -22,6 +33,7 @@ public class CustomerServiceImpl implements CustomerServiceI {
 		}
 	}
 
+	/**busca todos los clientes*/
 	@Override
 	public List<Customer> searchAll() {
 		
@@ -31,6 +43,7 @@ public class CustomerServiceImpl implements CustomerServiceI {
 		return customers;
 	}
 	
+	/**busca cliente por nombre y apellidos*/
 	@Override
 	public List<Customer> searchByNameAndLastName(String name,String firstFamilyName, String secondFamilyName) {
 
@@ -40,16 +53,19 @@ public class CustomerServiceImpl implements CustomerServiceI {
 		
 	}
 
+	/**busca cliente por identificador*/
 	@Override
 	public Customer searchById(int IdCustomer) {
 		return customerDao.findById(IdCustomer);
 	}
 
+	/**elimina cliente*/
 	@Override
 	public void deleteCustomer(Customer customer) {
 		customerDao.delete(customer);
 	}
 
+	/**actualiza cliente*/
 	@Override
 	public void updateCustomer(Customer customer) {
 		customerDao.update(customer);

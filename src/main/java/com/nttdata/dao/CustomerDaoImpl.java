@@ -4,6 +4,10 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +48,30 @@ public class CustomerDaoImpl extends CommonDaoImpl <Customer> implements Custome
 		
 		// Cierre de sesión
 		currentSession.close();
-		
+		 
 		return customer;
+	}
+
+	@Override
+	public List<Customer> criteriaFindByNameAndFamilyName(String name, String firstFamilyName, String secondFamilyName) {
+		
+		//Consulta
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
+		Root<Customer> root = cq.from(Customer.class);
+		
+		//Where
+		Predicate pr1 = cb.equal(root.get("name"), name);
+		Predicate pr2 = cb.equal(root.get("firstFamilyName"), firstFamilyName);
+		Predicate pr3 = cb.equal(root.get("secondFamilyName"), secondFamilyName);
+		
+		//Consulta
+		cq.select(root).where(cb.and(pr1, pr2, pr3));
+		 
+		//Ejecución de consulta
+		List<Customer> listCustomer = entityManager.createQuery(cq).getResultList();
+		
+		return listCustomer;
 	}
 
 }

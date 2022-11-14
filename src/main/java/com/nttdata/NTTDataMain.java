@@ -96,6 +96,13 @@ public class NTTDataMain implements CommandLineRunner{
 			System.out.println(custom);
 		}
 		
+		//Busqueda de un Cliente por nombre y apellidos con Criteria
+		customerList  = customerService.criteriaSearchByNameAndLastName("Ana", "García", "Torres");
+		for(Customer customer: customerList) {
+			String custom = customer.toString();
+			System.out.println(custom);
+		}
+		
 		//Actualizar datos de un cliente
 		customer2.setName("Juan Antonio");
 		customerService.updateCustomer(customer2);

@@ -25,4 +25,6 @@ public interface CustomerDaoI extends CommonDaoI<Customer> {
 	 * @return List<todosLosClientes>
 	 */
 	public List<Customer> findByNameAndFamilyName(final String name, final String firstFamilyName, final String secondFamilyName);
+	
+	public List<Customer> criteriaFindByNameAndFamilyName(final String name, final String firstFamilyName, final String secondFamilyName);
 }

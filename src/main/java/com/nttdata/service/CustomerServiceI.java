@@ -61,7 +61,15 @@ public interface CustomerServiceI {
 	 */
 	public List<Customer> searchByNameAndLastName(final String name, final String firstFamilyName, final String secondFamilyName);
 
-	
+	/**
+	 * 
+	 * @param name
+	 * @param firstFamilyName
+	 * @param secondFamilyName
+	 * @return List<clientes>
+	 */
+	public List<Customer> criteriaSearchByNameAndLastName(final String name, final String firstFamilyName, final String secondFamilyName);
+
 
 
 	

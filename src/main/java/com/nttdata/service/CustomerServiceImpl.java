@@ -52,6 +52,16 @@ public class CustomerServiceImpl implements CustomerServiceI {
 		return customers;
 		
 	}
+	
+	/**busca cliente por nombre y apellidos con Criteria*/
+	@Override
+	public List<Customer> criteriaSearchByNameAndLastName(String name,String firstFamilyName, String secondFamilyName) {
+
+		List<Customer> customers = new ArrayList<Customer>();
+		customers = customerDao.criteriaFindByNameAndFamilyName(name, firstFamilyName, secondFamilyName);
+		return customers;
+		
+	}
 
 	/**busca cliente por identificador*/
 	@Override
